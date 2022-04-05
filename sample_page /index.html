@@ -1,0 +1,96 @@
+<html>
+<head>
+    <title>CSE312 Sample Front End</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body onload="welcome();">
+
+<h1>My CSE312 Page</h1>
+
+<p id="paragraph">
+    This text is from the HTML file 🙂
+</p>
+
+<p>
+    Here's me. 🤪
+</p>
+
+<img src="image/me.jpg" alt="It's me" class="my_image"/>
+
+
+<script src="functions.js"></script>
+</body>
+<style>
+<!--div {-->
+<!--  width: 10px;-->
+<!--  height: 10px;-->
+<!--  background-image: red;-->
+<!--  position: relative;-->
+<!--  animation-name: example;-->
+<!--  animation-duration: 4s;-->
+<!--  animation-iteration-count: infinite;-->
+<!--  animation-timing-function: ease-out;-->
+<!--  animation-direction: alternate-reverse;-->
+
+<!--}-->
+
+<!--@keyframes example {-->
+<!--  0%   {background-color: beige; top:-200px; left: 1150px;}-->
+<!--  25%  {background-color: grey; top:100px; left: 850px;}-->
+<!--  50%  {background-color: beige; top:-200px; left: 850px;}-->
+<!--  75%  {background-color: grey; top:100px; left: 1150px;}-->
+<!--  100% {background-color: beige; top:-200px; left: 1150px;}-->
+<!--}-->
+
+</style>
+
+<div></div>
+
+
+<form action="/image-upload" id="image-form" method="post" enctype="multipart/form-data">
+    <label for="image-form-comment">Comment: </label>
+    <textarea id="image-form-comment" name="comment" cols="40" rows="6"></textarea>
+    <input value="{{token_valuex12}}" name="xsrf_token" hidden>
+    <br/>
+    <label for="form-file">Image: </label>
+    <input id="form-file" type="file" name="upload">
+    <input type="submit" value="Post">
+</form>
+
+
+<hr/>
+
+<!--=====================================================================================-->
+<label for="chat-comment">Chat: </label>
+<input id="chat-comment" type="text" name="comment">
+
+<button onclick="sendMessage()">Send</button>
+
+<div id="chat"></div>
+
+<br/>
+<button onclick="startVideo()">Start My Video</button>
+<br/>
+<button onclick="connectWebRTC()">Start Video Chat</button>
+<br/>
+
+<video id="myVideo" autoplay muted></video>
+<br/>
+<video id="otherVideo" autoplay></video>
+
+<br/>
+<!--=====================================================================================-->
+<br/>
+
+{{loop}}
+<link rel="stylesheet" type="text/css" href="style.css"/>
+
+<figure>
+    {{image_filenameRoute}}
+    <figcaption> {{comment}}</figcaption>
+</figure>
+{{end_loop}}
+
+<br/>
+
+</html>

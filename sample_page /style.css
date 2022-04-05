@@ -1,0 +1,15 @@
+
+body {
+    background-color: rgb(50,50,50);
+    /*background-image: linear-gradient(beige, rgb(64, 64, 64))*/
+
+    color: Beige;
+}
+
+.my_image {
+    width: 120px;
+}
+
+.imagesUsers {
+    width: 120px;
+}
