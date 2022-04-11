@@ -12,6 +12,7 @@ import directoryFile
 from pymongo import MongoClient
 import dataBases
 import newParse
+from cookies import cookies
 from webSockets import initateWebsocket
 from webSockets import websocket
 import webSockets
@@ -23,6 +24,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     clients = []
     new = []
     video = []
+    data = []
+    data2 = None
 
     def handle(self) -> None:
         # while True:
@@ -77,6 +80,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         requestDirectory = directoryFile.directory(newData).requestDirectory
 
         webBody = newParse.Request(newData).parseWebBody()
+        # print(newParse.Request(newData).headers['Cookie'])
+        print(cookies(newData).incrementCookies())
 
         # print(newData.decode())
         # print(webBody)
@@ -107,6 +112,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         if initateWebsocket(newData):
             self.new.append(self)
             username = "User: " + str(random.randint(0, 1000))
+            # data = None
+            # data2 = None
 
             while 1:
 
@@ -119,20 +126,49 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                     if len(newFrame[maskFrom:]) >= payloadLength:
                         break
                     newFrame += self.request.recv(1024)
+
                 parser1 = webSocketParse(newFrame, username)
                 if parser1.Opcode == 8:
                     self.new.remove(self)
+                    if self in self.video:
+                        self.video.remove(self)
                     break
-                # if webSocketParse(newFrame, username).iswebRTC():
-                #     self.video += self
 
-                if 'comment' not in parser1.message:
+                if 'messageType' in parser1.message and 'webRTC' in parser1.message['messageType']:
+                    # print(len(self.video),"total count")
+                    if self not in self.video:
+                        if len(self.video) == 0:
+                            if not self.data:
+                                self.video.append(self)
+                                self.data.append(parser1.packedMessage)
+                                # print(self.data, '-----------------')
 
-                    print(parser1.pack())
+                        elif len(self.video) == 1:
+                            if not self.data2:
+                                self.video.append(self)
+                                self.data2 = parser1.packedMessage
+                        # print(data, 'data213')
+
+                    if len(self.video) == 2:
+                        # print(len(self.data))
+                        # print(self.data)
+                        # print(data2)
+                        if self.data and self.data2:
+                            # print(self.video[0])
+                            # print(self.video[1])
+                            print('connecting 1...')
+                            self.video[0].request.sendall(self.data2)
+                            # print(data)
+                            count = 0
+                            print('connecting 2...')
+                            self.video[1].request.sendall(self.data[0])
+                            print('all data sent')
+                            sys.stdout.flush()
+                            sys.stderr.flush()
+
                 else:
-
                     for i in self.new:
-                        i.request.sendall(parser1.pack())
+                        i.request.sendall(parser1.packedMessage)
                         sys.stdout.flush()
                         sys.stderr.flush()
 

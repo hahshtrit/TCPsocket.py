@@ -56,6 +56,7 @@ class webSocketParse:
         self.maskFrom = maskFrom(self.frame)
         self.message = self.addUserName()
         self.addToDataBase()
+        self.packedMessage = webSocketParse.pack(self)
 
     def pay(self):
         if self.Opcode == 8:
@@ -107,54 +108,21 @@ class webSocketParse:
     def pack(self):
         useOpcode = [129]
         payLoadSize = 0
+        if not self.message:
+            print('none')
+            return None
         payLoad = bytearray(json.dumps(self.message).encode())
-        # print(self.message)
-        # if 'comment' in self.message:
-        # if True:
-        # print(payLoad)
-        size = (bin(len(payLoad))[2:])
-        # print(size)
-        lenS = len(size)
-        # print(format(len(payLoad), 'b'))
-        # print(payLoad)
-
-        if lenS % 8 != 0:
-            for i in range(8 - lenS % 8):
-                size = '0' + size
 
         if self.payloadLength < 126:
-            payLoadSize = [len(payLoad)]
-            arr = int(bin(len(payLoad)), 2)
-            print(arr)
+
             return bytearray(useOpcode) + ((len(payLoad)).to_bytes(1, 'big')) + payLoad
 
         elif self.frame[1] & 127 == 126:
-            bin1 = format(len(payLoad), 'b')
-            # bin1
-            sizeOfBin = len(bin1)
-            byt1 = bin1[:(sizeOfBin - 8)]
-            byt2 = bin1[(sizeOfBin - 8):]
-            print(int(bin(len(payLoad)), 2))
-            one = (int(bin(len(payLoad))[:sizeOfBin - 8], 2))
-            two = (int(bin(len(payLoad))[sizeOfBin - 8:], 2))
 
-            return bytearray(useOpcode + [126]) + (len(payLoad)).to_bytes(2,'big') + payLoad
+            return bytearray(useOpcode + [126]) + (len(payLoad)).to_bytes(2, 'big') + payLoad
 
         elif self.frame[1] & 127 == 127:
-            if len(size) != 64:
-                for i in range(64 - len(size)):
-                    size = '0' + size
-
-            byt1 = [int(size[:8], 2)]
-            byt2 = [int(size[8:16], 2)]
-            byt3 = [int(size[16:24], 2)]
-            byt4 = [int(size[24:32], 2)]
-            byt5 = [int(size[32:40], 2)]
-            byt6 = [int(size[40:48], 2)]
-            byt7 = [int(size[48:56], 2)]
-            byt8 = [int(size[56:], 2)]
-            bytT = bytearray(byt1 + byt2 + byt3 + byt4 + byt5 + byt6 + byt7 + byt8)
-            return bytearray(useOpcode + [127]) + (len(payLoad)).to_bytes(8,'big') + payLoad
+            return bytearray(useOpcode + [127]) + (len(payLoad)).to_bytes(8, 'big') + payLoad
 
         new = bytearray(useOpcode + [payLoadSize])
         return new + payLoad

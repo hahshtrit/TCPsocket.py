@@ -33,7 +33,7 @@ class directory:
                 f"HTTP/1.1 404 Not Found\r\nContent-Length :{len(errorMessage.encode())}\r\nContent-Type: text/html; charset=utf-8\r\n\r\n{errorMessage}".encode()
 
         self.getDirectory = {
-            '/': f"HTTP/1.1 200 OK\r\nContent-Length: {len(self.myHTML.encode())}\r\nContent-Type:text/html;charset=utf-8\r\nX-Content-Type-Options:nosniff\r\n\r\n{self.myHTML}".encode(),
+            '/': f"HTTP/1.1 200 OK\r\nContent-Length: {len(self.myHTML.encode())}\r\nContent-Type:text/html;charset=utf-8\r\nX-Content-Type-Options:nosniff\r\nSet-Cookie: visits=4\r\n\r\n{self.myHTML}".encode(),
             '/hello': f'HTTP/1.1 200 OK\r\nContent-Length: {len(self.textHi.encode())}\r\nContent-Type:text/html;charset=utf-8\r\nX-Content-Type-Options:nosniff\r\n\r\n{self.textHi}'.encode(),
             '/hi': "HTTP/1.1 301 Moved Permanently\r\nContent-Length:0\r\nLocation:/hello\r\n".encode(),
             '/style.css': f"HTTP/1.1 200 OK\r\nContent-Length: {(self.file_sizeCSS)}\r\nContent-Type: text/css; charset=utf-8\r\nX-Content-Type-Options: nosniff\r\n\r\n{self.myCSS.read()}".encode(),
