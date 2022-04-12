@@ -5,16 +5,21 @@ import newParse
 import parse
 import dataBases
 import directoryFile
+from cookies import cookies
 
 token = secrets.token_hex(16)
 
 
-def htmlRendering(html_fileName, data):
+# def addCookies(data):
+#     cookies.incrementCookies(data)
+
+def htmlRendering(html_fileName, data, newData):
     with open(html_fileName) as html_file:
         template = html_file.read()
         template = replace_placeholders(template, data)
         template = render_loop(template, data)
         template = template.replace("{{token_valuex12}}", token)
+        template = template.replace("{{cookieTracker}}", str(cookies().incrementCookies(newData)))
         return template
 
 

@@ -109,7 +109,7 @@ class webSocketParse:
         useOpcode = [129]
         payLoadSize = 0
         if not self.message:
-            print('none')
+            # print('none')
             return None
         payLoad = bytearray(json.dumps(self.message).encode())
 

@@ -3,14 +3,17 @@ import newParse
 
 
 class cookies:
-    def __init__(self, data):
-        self.data = data
-
-    def incrementCookies(self):
+    def incrementCookies(self, data):
         dic = {}
-        parsed = newParse.Request(self.data).headers['Cookie']
-        visits = parsed.split(';')
-        for i in visits:
-            split2 = i.split('=')
-            dic[split2[0]] = split2[1]
-        return dic[' visits']
+        count = 1
+        if 'Cookie' in newParse.Request(data).headers:
+            parsed = newParse.Request(data).headers['Cookie']
+            visits = parsed.split(';')
+            for i in visits:
+                split2 = i.split('=')
+                dic[split2[0].strip()] = split2[1].strip()
+            if 'visits' in dic:
+                if (dic['visits']).isnumeric():
+                    count = int(dic['visits']) + 1
+
+        return count

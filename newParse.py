@@ -99,7 +99,6 @@ class Request:
                             statements['filename'] = fileName
                             statements['contentType'] = contentType
 
-
         return statements
 
 

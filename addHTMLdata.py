@@ -46,7 +46,7 @@ def token_exist(newData):
     webBody = newParse.Request(newData).parseWebBody()
     if webBody:
         if webBody['token']:
-            if header.token!= webBody['token'].decode():
+            if header.token != webBody['token'].decode():
                 return False
 
     return True
@@ -92,4 +92,4 @@ def indexHTMLCall(data):
     add_data(data)
     commentsData = list(database.image_collection.find({}, {"_id": 0}))
     # print(3)
-    return htmlRendering("sample_page /index.html", {'loop_data': commentsData})
+    return htmlRendering("sample_page /index.html", {'loop_data': commentsData}, data)
