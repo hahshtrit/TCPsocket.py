@@ -79,6 +79,7 @@ class webSocketParse:
         message = self.frame[maskFrom: maskFrom + self.payloadLength]
         for i in range(self.payloadLength):
             byte.append(message[i] ^ maskingKey[i % 4])
+
         return json.loads(byte.decode())
 
     def addUserName(self):
@@ -112,6 +113,7 @@ class webSocketParse:
             # print('none')
             return None
         payLoad = bytearray(json.dumps(self.message).encode())
+
 
         if self.payloadLength < 126:
 

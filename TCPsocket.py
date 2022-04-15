@@ -127,16 +127,17 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                 parser1 = webSocketParse(newFrame, username)
                 if parser1.Opcode == 8:
                     self.new.remove(self)
-
                     break
 
                 for i in self.new:
                     if 'messageType' in parser1.message and 'webRTC' in parser1.message['messageType']:
                         if i != self:
                             print('sent')
+                            # print(parser1.packedMessage)
                             i.request.sendall(parser1.packedMessage)
                     else:
                         i.request.sendall(parser1.packedMessage)
+                        # print(parser1.packedMessage)
                         sys.stdout.flush()
                         sys.stderr.flush()
 
