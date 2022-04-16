@@ -4,6 +4,8 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <h1>Number of page visits: {{cookieTracker}}</h1>
+
+<h2>{{UserWelcome}}</h2>
 <body onload="welcome();">
 
 <h1>My CSE312 Page</h1>
@@ -21,29 +23,6 @@
 
 <script src="functions.js"></script>
 </body>
-<style>
-<!--div {-->
-<!--  width: 10px;-->
-<!--  height: 10px;-->
-<!--  background-image: red;-->
-<!--  position: relative;-->
-<!--  animation-name: example;-->
-<!--  animation-duration: 4s;-->
-<!--  animation-iteration-count: infinite;-->
-<!--  animation-timing-function: ease-out;-->
-<!--  animation-direction: alternate-reverse;-->
-
-<!--}-->
-
-<!--@keyframes example {-->
-<!--  0%   {background-color: beige; top:-200px; left: 1150px;}-->
-<!--  25%  {background-color: grey; top:100px; left: 850px;}-->
-<!--  50%  {background-color: beige; top:-200px; left: 850px;}-->
-<!--  75%  {background-color: grey; top:100px; left: 1150px;}-->
-<!--  100% {background-color: beige; top:-200px; left: 1150px;}-->
-<!--}-->
-
-</style>
 
 <div></div>
 
@@ -60,6 +39,34 @@
 
 
 <hr/>
+
+<h3>Registration:</h3>
+<form action="/registration" id="register-form" method="post" enctype="multipart/form-data">
+<!--    <input name="name">-->
+
+    <label for="Username1">Username:</label>
+    <textarea id="Username1" name="Username1" cols="25" rows="1"></textarea>
+    <br/>
+    <label for="Password1">Password : </label>
+    <textarea id="Password1" name="Password1" cols="25" rows="1"></textarea>
+    <input type="submit" value="Enter">
+
+</form>
+
+<h3>Login:</h3>
+<form action="/login" id="login-form" method="post" enctype="multipart/form-data">
+    <!--    <input name="name">-->
+
+    <label for="Username2">Username:</label>
+    <textarea id="Username2" name="Username2" cols="25" rows="1"></textarea>
+    <br/>
+    <label for="Password1">Password : </label>
+    <textarea id="Password2" name="Password2" cols="25" rows="1"></textarea>
+    <input type="submit" value="Enter">
+
+</form>
+
+
 
 <!--=====================================================================================-->
 <label for="chat-comment">Chat: </label>

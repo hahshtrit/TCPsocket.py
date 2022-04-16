@@ -101,6 +101,54 @@ class Request:
 
         return statements
 
+    def parsePassUser(self, type):
+        webKit = self.parseWebKit()
+        semi_delimiter = b'\r\n'
+        delimiter = b'\r\n\r\n'
+
+        statements = {}
+        Username = ''
+        Password = ''
+        if type == 'add':
+            Username = 'Content-Disposition: form-data; name="Username1"'
+            Password = 'Content-Disposition: form-data; name="Password1"'
+        if type == 'login':
+            Username = 'Content-Disposition: form-data; name="Username2"'
+            Password = 'Content-Disposition: form-data; name="Password2"'
+
+
+        if webKit:
+            data2 = self.body.split(webKit.encode())
+
+            for i in range(len(data2)):
+                if Username.encode() in data2[i]:
+                    current = data2[i]
+                    index = current.find(delimiter)
+                    header = current[:index]
+                    headerIndex = header.find(semi_delimiter)
+                    header = header[headerIndex:]
+                    content = current[index + len(delimiter):]
+                    contentIndex = content.rfind(b'\r\n')
+                    content = content[:contentIndex]
+                    statements['Username'] = content
+                    if len(content) == 0:
+                        statements['Username'] = None
+
+                if Password.encode() in data2[i]:
+                    current = data2[i]
+                    index = current.find(delimiter)
+                    header = current[:index]
+                    headerIndex = header.find(semi_delimiter)
+                    header = header[headerIndex:]
+                    content = current[index + len(delimiter):]
+                    contentIndex = content.rfind(b'\r\n')
+                    content = content[:contentIndex]
+                    statements['Password'] = content
+                    if len(content) == 0:
+                        statements['Password'] = None
+
+        return statements
+
 
 def split_request(request):
     first_new_line = request.find(Request.new_line)

@@ -1,7 +1,8 @@
 import os
 import addHTMLdata
 import webSockets
-
+from authenticate import loginPassword
+import authenticate
 import newParse
 import dataBases
 from cookies import cookies
@@ -63,7 +64,9 @@ class directory:
 
         self.postDirectory = {
             "/users": dataBases.database(data).postUserSend(),
-            "/image-upload": f"HTTP/1.1 301 Moved Permanently\r\nContent-Length:0\r\nLocation:/\r\n".encode()
+            "/image-upload": f"HTTP/1.1 301 Moved Permanently\r\nContent-Length:0\r\nLocation:/\r\n".encode(),
+            '/registration': authenticate.successRegister(data),
+            '/login': loginPassword(data).successLogin()
 
         }
         self.deleteDirectory = {

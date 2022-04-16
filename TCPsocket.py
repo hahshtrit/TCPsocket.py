@@ -78,7 +78,9 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         requestDirectory = directoryFile.directory(newData).requestDirectory
 
         webBody = newParse.Request(newData).parseWebBody()
-        # print(newParse.Request(newData).headers['Cookie'])
+        id = (newParse.Request(newData))
+        # print(id.path)
+        # print(newParse.Request(newData).body)
 
         # print(newData.decode())
         # print(webBody)

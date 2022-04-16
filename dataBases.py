@@ -18,6 +18,7 @@ class database:
     image_collection = db["images"]
     tokens_collection = db["tokens"]
     websocket_collection = db['webSocket']
+    loginClient = db['clientLogin']
 
     def __init__(self, request):
         self.request = request
@@ -109,6 +110,7 @@ class database:
                            f"text/html; charset=utf-8\r\n\r\n{errorMessage}".encode()
 
     def deleteUser(self):
+        # print('heellosfdfd')
         id = newParse.Request(self.request).parseUserID()
 
         if "DELETE" in newParse.Request(self.request).method:

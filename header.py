@@ -1,6 +1,7 @@
 import secrets
 
 import TCPsocket
+import authenticate
 import newParse
 import parse
 import dataBases
@@ -20,6 +21,10 @@ def htmlRendering(html_fileName, data, newData):
         template = render_loop(template, data)
         template = template.replace("{{token_valuex12}}", token)
         template = template.replace("{{cookieTracker}}", str(cookies().incrementCookies(newData)))
+        template = template.replace("{{UserWelcome}}", "please register or login")
+        if authenticate.addUsername(newData):
+            template = template.replace("{{UserWelcome}}", authenticate.addUsername(newData))
+
         return template
 
 
