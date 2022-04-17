@@ -1,6 +1,6 @@
 import dataBases
 import header
-
+import cookies
 import newParse
 from dataBases import database
 from header import htmlRendering
@@ -93,8 +93,10 @@ def indexHTMLCall(data):
     add_data(data)
     commentsData = list(database.image_collection.find({}, {"_id": 0}))
     messageData = list(database.authMessages.find({}, {"_id": 0}))
+    if cookies.addUsername(data) == "please register or login":
+        messageData = list()
 
-# print(3)
+    # print(3)
     return htmlRendering("sample_page /index.html", {'loop_data': commentsData}, {'loop_data': messageData}, data)
 
 
