@@ -1,6 +1,7 @@
 import json
 
 import addHTMLdata
+import cookies
 
 
 class Request:
@@ -116,7 +117,6 @@ class Request:
             Username = 'Content-Disposition: form-data; name="Username2"'
             Password = 'Content-Disposition: form-data; name="Password2"'
 
-
         if webKit:
             data2 = self.body.split(webKit.encode())
 
@@ -146,6 +146,34 @@ class Request:
                     statements['Password'] = content
                     if len(content) == 0:
                         statements['Password'] = None
+
+        return statements
+
+    def parseAuthMessage(self):
+        webKit = self.parseWebKit()
+        semi_delimiter = b'\r\n'
+        delimiter = b'\r\n\r\n'
+
+        statements = {}
+        message = 'Content-Disposition: form-data; name="AutoMessage"'
+
+        if webKit:
+            data2 = self.body.split(webKit.encode())
+
+            for i in range(len(data2)):
+                if message.encode() in data2[i]:
+                    current = data2[i]
+                    index = current.find(delimiter)
+                    header = current[:index]
+                    headerIndex = header.find(semi_delimiter)
+                    header = header[headerIndex:]
+                    content = current[index + len(delimiter):]
+                    contentIndex = content.rfind(b'\r\n')
+                    content = content[:contentIndex]
+                    statements['authorizedMessage'] = addHTMLdata.escapeHTML(content).decode()
+                    statements['Username'] = cookies.addUsername(self.request)
+                    if len(content) == 0:
+                        statements['Message'] = None
 
         return statements
 

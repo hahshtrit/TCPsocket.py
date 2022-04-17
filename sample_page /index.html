@@ -26,7 +26,6 @@
 
 <div></div>
 
-
 <form action="/image-upload" id="image-form" method="post" enctype="multipart/form-data">
     <label for="image-form-comment">Comment: </label>
     <textarea id="image-form-comment" name="comment" cols="40" rows="6"></textarea>
@@ -67,8 +66,26 @@
 </form>
 
 
+<h3>Authorized Chat:</h3>
+<form action="/auto-chat" id="chat-form" method="post" enctype="multipart/form-data">
+    <!--    <input name="name">-->
+    <label for="AutoMessage">Authorized Chat Message : </label>
+    <textarea id="AutoMessage" name="AutoMessage" cols="25" rows="1"></textarea>
+    <input type="submit" value="Enter">
 
-<!--=====================================================================================-->
+</form>
+<br>
+{{loop2}}
+    {{authorizedUser}}: {{authorizedMessage}}
+<br>
+{{end_loop2}}
+
+<br/>
+
+
+
+
+    <!--=====================================================================================-->
 <label for="chat-comment">Chat: </label>
 <input id="chat-comment" type="text" name="comment">
 

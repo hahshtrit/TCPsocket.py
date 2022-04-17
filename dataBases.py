@@ -19,6 +19,7 @@ class database:
     tokens_collection = db["tokens"]
     websocket_collection = db['webSocket']
     loginClient = db['clientLogin']
+    authMessages = db['authMessages']
 
     def __init__(self, request):
         self.request = request

@@ -1,11 +1,10 @@
 import os
 import addHTMLdata
 import webSockets
-from authenticate import loginPassword
 import authenticate
 import newParse
 import dataBases
-from cookies import cookies
+from cookies import incrementCookies
 
 
 class directory:
@@ -15,6 +14,8 @@ class directory:
 
         self.textHi = '<h1> Hello World️!!<h1>'
         self.myHTML = addHTMLdata.indexHTMLCall(data)
+        # self.myHTML = addHTMLdata.indexHTMLCall2(data,self.myHTML)
+        # self.myHTML = open("sample_page /index.html", "r")
         self.myCSS = open("sample_page /style.css", "r")
         self.myJS = open("sample_page /functions.js", "r")
 
@@ -32,7 +33,7 @@ class directory:
                 f"HTTP/1.1 404 Not Found\r\nContent-Length :{len(errorMessage.encode())}\r\nContent-Type: text/html; charset=utf-8\r\n\r\n{errorMessage}".encode()
 
         self.getDirectory = {
-            '/': f"HTTP/1.1 200 OK\r\nContent-Length: {len(self.myHTML.encode())}\r\nContent-Type:text/html;charset=utf-8\r\nX-Content-Type-Options:nosniff\r\nSet-Cookie: visits={cookies().incrementCookies(data)}\r\n\r\n{self.myHTML}".encode(),
+            '/': f"HTTP/1.1 200 OK\r\nContent-Length: {len(self.myHTML.encode())}\r\nContent-Type:text/html;charset=utf-8\r\nX-Content-Type-Options:nosniff\r\nSet-Cookie: visits={incrementCookies(data)};  Max-Age=7200\r\n\r\n{self.myHTML}".encode(),
             '/hello': f'HTTP/1.1 200 OK\r\nContent-Length: {len(self.textHi.encode())}\r\nContent-Type:text/html;charset=utf-8\r\nX-Content-Type-Options:nosniff\r\n\r\n{self.textHi}'.encode(),
             '/hi': "HTTP/1.1 301 Moved Permanently\r\nContent-Length:0\r\nLocation:/hello\r\n".encode(),
             '/style.css': f"HTTP/1.1 200 OK\r\nContent-Length: {(self.file_sizeCSS)}\r\nContent-Type: text/css; charset=utf-8\r\nX-Content-Type-Options: nosniff\r\n\r\n{self.myCSS.read()}".encode(),
@@ -66,7 +67,8 @@ class directory:
             "/users": dataBases.database(data).postUserSend(),
             "/image-upload": f"HTTP/1.1 301 Moved Permanently\r\nContent-Length:0\r\nLocation:/\r\n".encode(),
             '/registration': authenticate.successRegister(data),
-            '/login': loginPassword(data).successLogin()
+            '/login': authenticate.successLogin(data),
+            '/auto-chat': authenticate.authMessage(data)
 
         }
         self.deleteDirectory = {

@@ -92,5 +92,15 @@ def indexHTMLCall(data):
     # print(1)
     add_data(data)
     commentsData = list(database.image_collection.find({}, {"_id": 0}))
-    # print(3)
-    return htmlRendering("sample_page /index.html", {'loop_data': commentsData}, data)
+    messageData = list(database.authMessages.find({}, {"_id": 0}))
+
+# print(3)
+    return htmlRendering("sample_page /index.html", {'loop_data': commentsData}, {'loop_data': messageData}, data)
+
+
+# def indexHTMLCall2(data, file):
+#     # print(1)
+#     commentsData = list(database.authMessages.find({}, {"_id": 0}))
+#     # print(commentsData)
+#     # print(3)
+#     return htmlRendering(file, {'loop_data': commentsData}, data)

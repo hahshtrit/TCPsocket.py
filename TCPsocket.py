@@ -6,11 +6,10 @@ import sys
 import random
 
 import addHTMLdata
-from cookies import cookies
 import header
 import parse
 import directoryFile
-from pymongo import MongoClient
+# from pymongo import MongoClient
 import dataBases
 import newParse
 # from cookies import cookies
@@ -84,7 +83,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
         # print(newData.decode())
         # print(webBody)
-        # print(newParse.Request(newData).body)
+        # print(newParse.Request(newData))
+        # print(newData.decode())
         # print(newParse.Request(newData).path)
         # print(newParse.Request(newData).headers)
 
