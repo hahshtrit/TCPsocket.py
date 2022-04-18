@@ -13,3 +13,12 @@ body {
 .imagesUsers {
     width: 120px;
 }
+._Registration{
+outline: 0;
+display: inline-block;
+border: 3px solid #1c87c9;
+resize: horizontal;
+vertical-align:middle;
+
+overflow: auto;
+}

@@ -3,11 +3,10 @@
     <title>CSE312 Sample Front End</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
-<h1>Number of page visits: {{cookieTracker}}</h1>
+<h2>Number of page visits: {{cookieTracker}}</h2>
 
 <h2>{{UserWelcome}}</h2>
 <body onload="welcome();">
-
 <h1>My CSE312 Page</h1>
 
 <p id="paragraph">
@@ -35,46 +34,40 @@
     <input id="form-file" type="file" name="upload">
     <input type="submit" value="Post">
 </form>
-
+<br>
 
 <hr/>
 
 <h3>Registration:</h3>
 <form action="/registration" id="register-form" method="post" enctype="multipart/form-data">
-<!--    <input name="name">-->
-
     <label for="Username1">Username:</label>
-    <textarea id="Username1" name="Username1" cols="25" rows="1"></textarea>
+    <textarea id="Username1" name="Username1" cols="25" rows="1" class="_Registration" placeholder="Create Username" required></textarea>
     <br/>
     <label for="Password1">Password : </label>
-    <textarea id="Password1" name="Password1" cols="25" rows="1"></textarea>
+    <textarea id="Password1" name="Password1" cols="25" rows="1" placeholder="Create Password" required class="_Registration"></textarea>
     <input type="submit" value="Enter">
-
 </form>
+
 
 <h3>Login:</h3>
 <form action="/login" id="login-form" method="post" enctype="multipart/form-data">
-    <!--    <input name="name">-->
-
     <label for="Username2">Username:</label>
-    <textarea id="Username2" name="Username2" cols="25" rows="1"></textarea>
+    <textarea id="Username2" name="Username2" cols="25" rows="1" placeholder="Enter Username" required class="_Registration"></textarea>
     <br/>
     <label for="Password1">Password : </label>
-    <textarea id="Password2" name="Password2" cols="25" rows="1"></textarea>
+    <textarea id="Password2" name="Password2" cols="25" rows="1" placeholder="Enter Password" required class="_Registration"></textarea>
     <input type="submit" value="Enter">
-
 </form>
-
+<br>
 
 <h3>Authorized Chat:</h3>
 <form action="/auto-chat" id="chat-form" method="post" enctype="multipart/form-data">
-    <!--    <input name="name">-->
     <label for="AutoMessage">Authorized Chat Message : </label>
-    <textarea id="AutoMessage" name="AutoMessage" cols="25" rows="1"></textarea>
+    <textarea id="AutoMessage" name="AutoMessage" cols="25" rows="1" class="_Registration" required></textarea>
     <input type="submit" value="Enter">
-
 </form>
 <br>
+
 {{loop2}}
     {{authorizedUser}}: {{authorizedMessage}}
 <br>

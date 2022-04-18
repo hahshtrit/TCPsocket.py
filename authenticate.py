@@ -19,6 +19,7 @@ def successRegister(data):
     if 'Username' in P:
         if P['Username']:
             userName = (Request(data).parsePassUser('add'))['Username'].decode()
+    # print(userName,password)
     if userName and password:
         salt = crypt.mksalt()
         password = crypt.crypt(password, salt)

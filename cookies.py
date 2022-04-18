@@ -32,16 +32,15 @@ def addUsername(data):
         visits = parsed.split(';')
         for i in visits:
             split2 = i.split('=')
+            # print(i)
             if split2:
                 dic[split2[0].strip()] = split2[1].strip()
-        # print(dic)
         if 'userCookie' in dic:
             cookie1 = crypt.crypt(dic['userCookie'],'qwertypoiu')
             # print(cookie1)
             cl = dataBases.database.loginClient.find_one({"cookie": cookie1}, {"_id": 0})
             # print(cl)
             if cl:
-                # print("yes cl")
                 user = addHTMLdata.escapeHTML((cl['username']).encode()).decode()
                 return f"Welcome: {user}, to our encrypted site!!"
     return "please register or login"
