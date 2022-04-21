@@ -47,10 +47,12 @@ def token_exist(newData):
     webBody = newParse.Request(newData).parseWebBody()
     if webBody:
         if webBody['token']:
+            print(webBody)
             if header.token != webBody['token'].decode():
                 return False
 
     return True
+
 
 
 def add_data(data):

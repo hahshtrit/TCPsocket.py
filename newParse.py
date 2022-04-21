@@ -175,6 +175,19 @@ class Request:
                     if len(content) == 0:
                         statements['Message'] = None
 
+                if 'Content-Disposition: form-data; name="XRSF_token"'.encode() in data2[i]:
+                    current = data2[i]
+                    index = current.find(delimiter)
+                    header = current[:index]
+                    headerIndex = header.find(semi_delimiter)
+                    header = header[headerIndex:]
+                    content = current[index + len(delimiter):]
+                    contentIndex = content.rfind(b'\r\n')
+                    content = content[:contentIndex]
+                    statements['token'] = content
+                    if len(content) == 0:
+                        statements['token'] = b'invalid token accessed'
+
         return statements
 
 

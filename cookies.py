@@ -5,49 +5,48 @@ import header
 import crypt
 import addHTMLdata
 
+
 def incrementCookies(data):
     dic = {}
     count = 1
     if 'Cookie' in newParse.Request(data).headers:
         parsed = newParse.Request(data).headers['Cookie']
         visits = parsed.split(';')
+        # print(visits)
         for i in visits:
-            split2 = i.split('=')
-            if split2:
-                dic[split2[0].strip()] = split2[1].strip()
-        if 'visits' in dic:
-            if (dic['visits']).isnumeric():
-                count = int(dic['visits']) + 1
+            # print(i)
+            split2 = i.find('=')
+            first = i[:split2]
+            second = i[split2 + 1:]
+            # print(first, second)
+            if first.strip() == 'visits':
+                count = int(second.strip()) + 1
+                break
 
     return count
 
 
 def addUsername(data):
-    # P = (Request(data).parsePassUser('login'))
-
-    dic = {}
-
     if 'Cookie' in newParse.Request(data).headers:
         parsed = newParse.Request(data).headers['Cookie']
         visits = parsed.split(';')
         for i in visits:
-            split2 = i.split('=')
+            split2 = i.find('=')
+            first = i[:split2]
+            second = i[split2 + 1:]
+            # print('-------')
             # print(i)
-            if split2:
-                dic[split2[0].strip()] = split2[1].strip()
-        if 'userCookie' in dic:
-            cookie1 = crypt.crypt(dic['userCookie'],'qwertypoiu')
-            # print(cookie1)
-            cl = dataBases.database.loginClient.find_one({"cookie": cookie1}, {"_id": 0})
-            # print(cl)
-            if cl:
-                user = addHTMLdata.escapeHTML((cl['username']).encode()).decode()
-                return f"Welcome: {user}, to our encrypted site!!"
+            # print(first,second)
+            # if split2:
+            #     print(split2)
+            #     dic[first.strip()] = second.strip()
+            # if 'userCookie' in dic:
+            if first.strip() == 'userCookie':
+                cookie1 = crypt.crypt(second.strip(), 'qwertypoiu')
+                # print(cookie1)
+                cl = dataBases.database.loginClient.find_one({"cookie": cookie1}, {"_id": 0})
+                # print(cl)
+                if cl:
+                    user = addHTMLdata.escapeHTML((cl['username']).encode()).decode()
+                    return f"Welcome: {user}, to our encrypted site!!"
     return "please register or login"
-
-
-
-
-
-
-

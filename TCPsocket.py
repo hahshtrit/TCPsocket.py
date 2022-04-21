@@ -84,7 +84,8 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         # print(newData.decode())
         # print(webBody)
         # print(newParse.Request(newData))
-        # print(newData.decode())
+        # if 'POST' in newData.decode():
+        #     print(newData.decode())
         # print(newParse.Request(newData).path)
         # print(newParse.Request(newData).headers)
 
