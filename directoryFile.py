@@ -16,17 +16,17 @@ class directory:
         self.myHTML = addHTMLdata.indexHTMLCall(data)
         # self.myHTML = addHTMLdata.indexHTMLCall2(data,self.myHTML)
         # self.myHTML = open("sample_page /index.html", "r")
-        self.myCSS = open("sample_page /style.css", "r")
-        self.myJS = open("sample_page /functions.js", "r")
+        self.myCSS = open("sample_page/style.css", "r")
+        self.myJS = open("sample_page/functions.js", "r")
 
-        self.file_sizeHTML = os.path.getsize("sample_page /index.html")
-        self.file_sizeCSS = os.path.getsize("sample_page /style.css")
-        self.file_sizeJS = os.path.getsize("sample_page /functions.js")
+        self.file_sizeHTML = os.path.getsize("sample_page/index.html")
+        self.file_sizeCSS = os.path.getsize("sample_page/style.css")
+        self.file_sizeJS = os.path.getsize("sample_page/functions.js")
 
         def sendImage(path):
-            if os.path.exists(f"sample_page /{path}"):
-                image = open(f"sample_page /{path}", "rb")
-                imageSize = os.path.getsize(f"sample_page /{path}")
+            if os.path.exists(f"sample_page/{path}"):
+                image = open(f"sample_page/{path}", "rb")
+                imageSize = os.path.getsize(f"sample_page/{path}")
                 return f"HTTP/1.1 200 OK\r\nContent-Length: {imageSize}\r\nContent-Type: image/jpeg\r\nX-Content-Type-Options: nosniff\r\n\r\n".encode() + image.read()
             else:
                 errorMessage = '<h2>ERROR 404😩<h2>'

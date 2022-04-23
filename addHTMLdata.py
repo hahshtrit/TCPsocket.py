@@ -44,7 +44,7 @@ def token_exist(newData):
     webBody = newParse.Request(newData).parseWebBody()
     if webBody:
         if webBody['token']:
-            print(webBody)
+            # print(webBody)
             if header.token != webBody['token'].decode():
                 return False
 
@@ -96,7 +96,7 @@ def indexHTMLCall(data):
         messageData = list()
 
     # print(3)
-    return htmlRendering("sample_page /index.html", {'loop_data': commentsData}, {'loop_data': messageData}, data)
+    return htmlRendering("sample_page/index.html", {'loop_data': commentsData}, {'loop_data': messageData}, data)
 
 
 # def indexHTMLCall2(data, file):

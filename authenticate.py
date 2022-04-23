@@ -15,15 +15,12 @@ def successRegister(data):
     if 'Username' in P:
         if P['Username']:
             userName = (Request(data).parsePassUser('add'))['Username'].decode()
-    # print(P)
     if userName and password:
         salt = crypt.mksalt()
         password = crypt.crypt(password, salt)
-        # salt = 'gge'
-        # password = password
+
         build = {'username': userName, 'salt': salt, 'password': password}
         dataBases.database.loginClient.insert_one(build)
-        # print(build)
 
         return "HTTP/1.1 301 Moved Permanently\r\nContent-Length:0\r\nLocation:/\r\n".encode()
     else:
@@ -31,11 +28,6 @@ def successRegister(data):
         return f"HTTP/1.1 200 OK\r\nContent-Length: {len(text.encode())}\r\nContent-Type: " \
                f"text/plain\r\nX-Content-Type-Options: nosniff\r\n\r\n{text}".encode()
 
-
-# class loginPassword:
-#     # ss = []
-#     def __init__(self, data):
-#         self.data = data
 
 def successLogin(data):
     P = (Request(data).parsePassUser('login'))
@@ -101,6 +93,7 @@ def authMessage(data):
     forbidden = '403 Access Denied'
     return f"HTTP/1.1 403 Forbidden\r\nContent-Length :{len(forbidden.encode())}\r\nContent-Type: " \
            f"text/html; charset=utf-8\r\n\r\n{forbidden}".encode()
+
 
 def addAuthMessage(data):
     message = (Request(data).parseAuthMessage())
