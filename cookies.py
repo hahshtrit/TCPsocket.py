@@ -1,7 +1,5 @@
-import TCPsocket
 import newParse
 import dataBases
-import header
 import crypt
 import addHTMLdata
 

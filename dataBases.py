@@ -1,11 +1,10 @@
 import json
 import sys
 from pymongo import MongoClient
-import TCPsocket
+# import TCPsocket
+# import pymongo
 import newParse
 import parse
-import directoryFile
-
 
 class database:
     mongo_client = MongoClient("mongo")

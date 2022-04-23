@@ -2,7 +2,7 @@ import secrets
 
 from cookies import incrementCookies
 from cookies import addUsername
-from newParse import Request
+# from newParse import Request
 import dataBases
 token = secrets.token_hex(16)
 user_token = ''

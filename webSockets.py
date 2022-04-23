@@ -1,10 +1,6 @@
 import json
-import sys
-import TCPsocket
 import addHTMLdata
 import newParse
-import socketserver
-import header
 import dataBases
 import hashlib
 from base64 import b64encode

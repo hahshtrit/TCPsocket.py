@@ -1,23 +1,14 @@
 import json
 import socketserver
-import _sha1
 import sys
-# import os
 import random
 
 import addHTMLdata
-import header
-import parse
 import directoryFile
-# from pymongo import MongoClient
-import dataBases
 import newParse
-# from cookies import cookies
 from webSockets import initateWebsocket
-from webSockets import websocket
 import webSockets
 from webSockets import webSocketParse
-import base64
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):

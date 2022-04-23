@@ -1,10 +1,6 @@
-import json
-
-# import bcrypt
 import secrets
 import crypt
 from newParse import Request
-# import bcrypt
 from header import find_token
 import dataBases
 
