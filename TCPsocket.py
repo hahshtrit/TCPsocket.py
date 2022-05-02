@@ -2,7 +2,6 @@ import json
 import socketserver
 import sys
 import random
-
 import addHTMLdata
 import directoryFile
 import newParse
